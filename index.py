@@ -31,7 +31,6 @@ def login(driver):
 
 def user_page(drive):
   driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div[2]/div[4]/div[1]/div[4]').click()
-  driver.implicitly_wait(10)
 
 def scroll_down(driver, whileSeconds):
   start = datetime.datetime.now()
@@ -42,7 +41,21 @@ def scroll_down(driver, whileSeconds):
     if datetime.datetime.now() > end:
         break
 
+def get_data(driver):
+  post = driver.find_elements_by_xpath("//div[@class='du4w35lb k4urcfbm l9j0dhe7 sjgh65i0']/div/div/div/div/div/div/div/div/div/div[2]/div/div[3]")
+  for item in post:
+    idx = post.index(item)
+    print(idx)
+    try:
+      img = item.find_element_by_tag_name('img')
+      img = img.get_attribute("src")
+      print(img)
+    except:
+      continue
+
 driver = open_chrome()
 login(driver)
 user_page(driver)
+
 scroll_down(driver, 100)
+get_data(driver)

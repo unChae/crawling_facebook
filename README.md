@@ -1,5 +1,11 @@
 # crawling_facebook
 
+- env
+  - firefox
+  
+- complete
+  - image data crawling
+  
 - todolist
-  - data format
-  - scroll
+  - time
+  
