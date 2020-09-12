@@ -1,6 +1,7 @@
 import sys
 import time
 import datetime
+import asyncio
 
 user_id = ""
 user_pw = ""
@@ -27,10 +28,11 @@ def login(driver):
   driver.find_element_by_name('email').send_keys(user_id)
   driver.find_element_by_name('pass').send_keys(user_pw)
   driver.find_element_by_name('login').click()
-  time.sleep(3)
+  
 
-def user_page(drive):
+def user_page(driver):
   driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div[2]/div[4]/div[1]/div[4]').click()
+  
 
 def scroll_down(driver, whileSeconds):
   start = datetime.datetime.now()
@@ -39,7 +41,8 @@ def scroll_down(driver, whileSeconds):
     driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
     time.sleep(1)
     if datetime.datetime.now() > end:
-        break
+      break
+  
 
 def get_data(driver):
   post = driver.find_elements_by_xpath("//div[@class='du4w35lb k4urcfbm l9j0dhe7 sjgh65i0']/div/div/div/div/div/div/div/div/div/div[2]/div/div[3]")
@@ -52,10 +55,15 @@ def get_data(driver):
       print(img)
     except:
       continue
+  
 
-driver = open_chrome()
-login(driver)
-user_page(driver)
+def main():
+  driver = open_chrome()
+  login(driver)
+  user_page(driver)
+  time.sleep(20)
+  scroll_down(driver, 100)
+  get_data(driver)
 
-scroll_down(driver, 100)
-get_data(driver)
+if __name__ == '__main__': 
+  main()
